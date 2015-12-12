@@ -15,7 +15,7 @@ function nextLevel() {
 	goalSound.play();
 }
 
-function goBack() {
+/*function goBack() {
 	console.log("goin back");
 	navigateMenu(0);
-}
+}*/

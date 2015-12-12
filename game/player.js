@@ -233,7 +233,23 @@ function Player() {
 				string: function() {return ["Darn, looks like I'll have to", "try again with better speed."]}
 			}
 		],
-		[], // 2
+		[	// 2
+			{
+				condition: function() {return player.leveltime === 10},
+				string: function() {return ["I think I got the hang of it.", "It could be worse..."]}
+			}
+		], 
+		[	// 3
+			{
+				condition: function() {if (player.y > 150 && player.x < 130 && !player.dialogues[3][0].shown) {
+												this.shown = true; 
+												return true;
+												}
+											},
+				string: function() {return ["This feels almost", "like dribbling", "a basketball :)"]},
+				shown: false
+			}
+		],
 		[	// global
 			{
 				condition: function() {return player.leveldeaths >= 1 && player.aliveTimer === 10},
