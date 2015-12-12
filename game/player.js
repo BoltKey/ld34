@@ -16,7 +16,13 @@ function Player() {
 		this.speedx = 0;
 		this.speedy = 0;
 	}
-	this.die();
+	this.newLevel = function() {
+		this.x = level.start[0];
+		this.y = level.start[1];
+		this.speedx = 0;
+		this.speedy = 0;
+	}
+	this.newLevel();
 	this.update = function() {
 		this.x += this.speedx;
 		this.y += this.speedy;
@@ -41,6 +47,9 @@ function Player() {
 				if (tile === 2) {
 					this.die();
 				}
+				if (tile === 3) {
+					nextLevel();
+				}
 			}
 		}
 		x = Math.floor(this.x / 24)
@@ -60,6 +69,9 @@ function Player() {
 				}
 				if (tile === 2) {
 					this.die();
+				}
+				if (tile === 3) {
+					nextLevel();
 				}
 			}
 		}

@@ -7,6 +7,9 @@ Level = function(code, start) {
 			j = 0;
 			for (tile of line) {
 				switch(tile) {
+					case 3:
+						ctx.fillStyle = "purple";
+						break;
 					case 2: 
 						ctx.fillStyle = "red";
 						break;
@@ -19,7 +22,7 @@ Level = function(code, start) {
 						ctx.fillStyle = "white";
 						break;
 				}
-				ctx.fillRect(j * 24, i * 24, 23, 23);
+				ctx.fillRect(j * 24, i * 24, 24, 24);
 				++j;
 			}
 			++i;
