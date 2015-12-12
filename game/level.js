@@ -28,20 +28,22 @@ Level = function(code, start) {
 						
 					case 5:
 						s = "↓";
-						ctx.fillStyle = "yellow"
+						ctx.fillStyle = "yellow";
 						break;
 					case 6:
 						s = "→";
-						ctx.fillStyle = "yellow"
+						ctx.fillStyle = "yellow";
 						break;
 					case 7:
 						s = "←";
-						ctx.fillStyle = "yellow"
+						ctx.fillStyle = "yellow";
 						break;
 					case 8:
 						s = "↑";
-						ctx.fillStyle = "yellow"
+						ctx.fillStyle = "yellow";
 						break;
+					case 9:
+						ctx.fillStyle = "#ccffcc";
 						
 				}
 				ctx.fillRect(j * 24, i * 24, 24, 24);

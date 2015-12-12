@@ -1,7 +1,9 @@
 function Player() {
 	this.speedx = 0;
 	this.speedy = 0;
+	this.width = 16;
 	this.gravity = [0, 0];
+	this.growing = false;
 	this.totaldeaths = 0;
 	this.leveldeaths = 0;
 	this.deadpixels = [];
@@ -21,6 +23,7 @@ function Player() {
 		this.y = level.start[1];
 		this.speedx = 0;
 		this.speedy = 0;
+		this.width = 16;
 		this.aliveTimer = 0;
 		this.dialogue = "";
 		dieSound.play();
@@ -30,6 +33,7 @@ function Player() {
 	this.newLevel = function() {
 		this.x = level.start[0];
 		this.y = level.start[1];
+		this.width = 16;
 		this.speedx = 0;
 		this.speedy = 0;
 		this.leveltime = 0;
@@ -57,6 +61,9 @@ function Player() {
 			this.speedy *= 0.994;
 			this.speedx *= 0.994;
 		}
+		if (this.growing) {
+			this.width += 0.1;
+		}
 		this.speedx += 0.02 * this.gravity[0];
 		this.speedy += 0.02 * this.gravity[1];
 		this.checkcollision();
@@ -79,37 +86,35 @@ function Player() {
 	this.checkIce = function() {
 		var x = Math.floor((this.x + 8) / 24);
 		var y = Math.floor((this.y + 8) / 24);
+		this.onIce = false;
+		this.gravity = [0, 0];
+		this.growing = false;
 		switch (level.code[y][x]) {
 			case 4:
 				this.onIce = true;
-				this.gravity = [0, 0];
 				break;
 			case 5: 
 				this.gravity = [0, 1];
-				this.onIce = false;
 				break;
 			case 6:
 				this.gravity = [1, 0];
-				this.onIce = false;
 				break;
 			case 7:
 				this.gravity = [-1, 0];
-				this.onIce = false;
 				break;
 			case 8:
 				this.gravity = [0, -1];
-				this.onIce = false;
 				break;
-			default:
-				this.gravity = [0, 0];
-				this.onIce = false;
+			case 9:
+				this.growing = true;
+				break;
 		}
 	}
 	this.checkcollision = function() {
 		var x = Math.floor(this.x / 24)
 		var y = Math.floor(this.y / 24)
 		var c = true;
-		var mod = (this.speedx > 0 ? 16 : 0);
+		var mod = (this.speedx > 0 ? this.width : 0);
 		var h = (this.speedx > 0 ? 1 : -1);
 		if (Math.floor((this.x + this.speedx + mod + 0.01 * h) / 24) === Math.floor((this.x + mod) / 24 + h)) {
 			for (var i = 0; i < ((this.y % 24 < 8 || (this.y + this.speedy) % 24 < 8) ? 1 : 2); ++i) {
@@ -136,7 +141,7 @@ function Player() {
 		x = Math.floor(this.x / 24)
 		y = Math.floor(this.y / 24)
 		c = true;
-		mod = (this.speedy > 0 ? 16 : 0);
+		mod = (this.speedy > 0 ? this.width : 0);
 		h = (this.speedy > 0 ? 1 : -1);
 		if (Math.floor((this.y + this.speedy + mod + 0.01 * h) / 24) === Math.floor((this.y + mod) / 24 + h)) {
 			for (var i = 0; i < ((this.x % 24 < 8) ? 1 : 2); ++i) {
@@ -182,12 +187,12 @@ function Player() {
 				string = "ding";
 				break;
 		}
-		this.hitstrings.push({str: string, x: this.x + 8 + Math.sign(this.speedx) * 16, y: this.y + 8 + Math.sign(this.speedy) * 16, time: 0});
+		this.hitstrings.push({str: string, x: this.x + 8 + Math.sign(this.speedx) * this.width, y: this.y + 8 + Math.sign(this.speedy) * this.width, time: 0});
 		
 	}
 	this.draw = function() {
 		ctx.fillStyle = "green";
-		ctx.fillRect(this.x, this.y, 16, 16);
+		ctx.fillRect(this.x, this.y, this.width, this.width);
 		ctx.textAlign = "center";
 		ctx.font = "12px Arial";
 		for (p of this.deadpixels) {
