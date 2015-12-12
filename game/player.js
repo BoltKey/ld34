@@ -1,19 +1,20 @@
 function Player() {
 	this.speedx = 0;
 	this.speedy = 0;
-	this.dialogue = "";
+	this.gravity = [0, 0];
 	this.totaldeaths = 0;
 	this.leveldeaths = 0;
 	this.deadpixels = [];
 	this.aliveTimer = 0;
+	this.onIce = false;
 	this.hitstrings = [];
 	this.up = function() {
 		console.log("right");
-		this.speedy -= 0.03;
+		this.speedy -= (this.onIce ? 0.006 : 0.03);
 	}
 	this.right = function() {
 		console.log("up");
-		this.speedx += 0.03;
+		this.speedx += (this.onIce ? 0.006 : 0.03);
 	}
 	this.die = function() {
 		this.x = level.start[0];
@@ -40,6 +41,8 @@ function Player() {
 		this.hitstring = [];
 	}
 	this.newLevel();
+	this.dialogue = ((currlevel === 0) ? [] : ["Phew, it autosaves"]);
+	this.sametext = 0;
 	this.speed = function() {
 		return Math.sqrt(Math.pow(Math.abs(player.speedx), 2) + Math.pow(Math.abs(player.speedy), 2));
 	}
@@ -50,9 +53,14 @@ function Player() {
 		++this.aliveTimer;
 		this.x += this.speedx;
 		this.y += this.speedy;
-		this.speedy *= 0.994;
-		this.speedx *= 0.994;
+		if (!this.onIce) {
+			this.speedy *= 0.994;
+			this.speedx *= 0.994;
+		}
+		this.speedx += 0.02 * this.gravity[0];
+		this.speedy += 0.02 * this.gravity[1];
 		this.checkcollision();
+		this.checkIce();
 		var temp = this.dialogues[currlevel].concat(this.dialogues[this.dialogues.length - 1])
 		for (d of temp) {
 			if (d.condition()) {
@@ -66,6 +74,35 @@ function Player() {
 		}
 		if (this.sametext > 90 * this.dialogue.length) {
 			this.dialogue = [];
+		}
+	}
+	this.checkIce = function() {
+		var x = Math.floor((this.x + 8) / 24);
+		var y = Math.floor((this.y + 8) / 24);
+		switch (level.code[y][x]) {
+			case 4:
+				this.onIce = true;
+				this.gravity = [0, 0];
+				break;
+			case 5: 
+				this.gravity = [0, 1];
+				this.onIce = false;
+				break;
+			case 6:
+				this.gravity = [1, 0];
+				this.onIce = false;
+				break;
+			case 7:
+				this.gravity = [-1, 0];
+				this.onIce = false;
+				break;
+			case 8:
+				this.gravity = [0, -1];
+				this.onIce = false;
+				break;
+			default:
+				this.gravity = [0, 0];
+				this.onIce = false;
 		}
 	}
 	this.checkcollision = function() {
@@ -249,12 +286,52 @@ function Player() {
 			{
 				condition: function() {return player.leveltime === 10},
 				string: function() {return ["I think I got the hang of it.", "It could be worse..."]}
+			},
+			{
+				condition: function() {if(player.onIce && !this.shown) {
+										this.shown = true;
+										return true;
+										}
+				},
+				shown: false,
+				string: function() {return ["It looks like ice.", "It is slipery as ice.", "I guess it is ice"]}
+			}
+		],
+		[  // 4
+			{
+				condition: function() {return player.leveltime === 10},
+				string: function() {return ["Holy cow!"]}
+			},
+			{
+				condition: function() {return player.leveltime === 100},
+				string: function() {return ["This looks dangerous!"]}
+			}
+		],
+		[  // 5
+		
+		],
+		[  // 6
+			{
+				condition: function() {return player.leveltime === 10},
+				string: function() {return ["WTF are these?"]}
+			},
+			{
+				condition: function() {
+					if (player.gravity[0] === -1 && !this.shown) {
+						this.shown = true; 
+						return true;
+						}
+					},
+				string: function() {return ["It seems to change gravity"]},
+				shown: false
 			}
 		],
 		[	// global
 			{
+				cases: 22,
 				condition: function() {return player.leveldeaths >= 1 && player.aliveTimer === 10},
-				string: function() {return [["That hurt."], 
+				string: function() {return [
+				["That hurt."], 
 				["Ouch!"], 
 				["I am in great pain!"], 
 				["Fun fact: I will never ", "actually die"],
@@ -263,8 +340,22 @@ function Player() {
 				["But what if", "I am not kill?"],
 				["Stop being sadist"], 
 				["One of my pixels just died.", "I hope you are happy now."],
-				["Squares have souls too!"]]
-				[Math.floor(Math.random() * 10)]}
+				["Squares have souls too!"], 
+				["It is getting repetitive.", "I died " + player.totaldeaths + " times already!"],
+				["There was chance of 1 in " + this.cases, "that you get this quote now.", "You should feel lucky"],
+				["These quotes and hit effects", "are the only random events", "in the game"],
+				["THIS IS 1,000,000th GLOBAL DEATH!", "GO CLAIM PRIZE TO CPYGN.RU!!!!!!!"],
+				["Really?"],
+				["There is no death penalty...", "except for frustration"],
+				["I may have just died, but at least", "I'm not green"],
+				["Is it lava?", "Or just a lot of berries?"],
+				["I'm not gonna lie", "I want you to keep playing", "just so you see all of these quotes"],
+				["This game is actually", " controlled with 4 keys"],
+				["I am not racist", "I am just allergic to some colours"],
+				["That was unfair"],
+				["All the quotes are random...", "except for this one...", "this one is controlled by fate"]
+				]
+				[Math.floor(Math.random() * this.cases)]}
 			}
 		]
 	]

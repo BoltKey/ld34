@@ -16,14 +16,7 @@ function keyrelease(ev) {
 }
 
 function keypressaction(c) {
-	switch(c) {
-		case 38: 	// up
-			//player.up();
-			break;
-		case 39:	// right
-			player.right();
-			break;
-	}
+
 }
 
 function keyholdaction(c) {

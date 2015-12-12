@@ -3,9 +3,7 @@
 <title>Upright</title>
 <link rel="shortcut icon" href="/boltlogo.png">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-<script src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="jscookie.js"></script>
 <script>var levels = [];</script>
 
 <?php

@@ -19,6 +19,6 @@ function main() {
 	}
 	goalSound = new Audio("sounds/finish.wav");
 	music.loop = true;
-	//newButtons();
 	mainloop();
 }
+
