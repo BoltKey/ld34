@@ -3,6 +3,7 @@ function Player() {
 	this.speedy = 0;
 	this.dialogue = "";
 	this.totaldeaths = 0;
+	this.hitstrings = [];
 	this.up = function() {
 		console.log("right");
 		this.speedy -= 0.03;
@@ -68,8 +69,10 @@ function Player() {
 					if (Math.abs(this.speedx) <  0.5) {
 						this.speedx = Math.sign(this.speedx) * 0.5;
 					}
+					this.hit();
 					this.speedx = - this.speedx;
 					c = false;
+					
 				}
 				if (tile === 2) {
 					this.die();
@@ -91,7 +94,9 @@ function Player() {
 					if (Math.abs(this.speedy) < 0.5) {
 						this.speedy = Math.sign(this.speedy) * 0.5;
 					}
+					this.hit();
 					this.speedy = - this.speedy;
+					
 					c = false;
 				}
 				if (tile === 2) {
@@ -103,6 +108,30 @@ function Player() {
 			}
 		}
 	}
+	this.hit = function() {
+		var temp = Math.floor(Math.random() * 5);
+		hitSounds[temp].play();
+		var string;
+		switch(temp) {
+			case 0:
+				string = "pow";
+				break;
+			case 1:
+				string = "pew";
+				break;
+			case 2:
+				string = "blib";
+				break;
+			case 3:
+				string = "pwiu";
+				break;
+			case 4:
+				string = "ding";
+				break;
+		}
+		this.hitstrings.push({str: string, x: this.x + 8 + Math.sign(this.speedx) * 16, y: this.y + 8 + Math.sign(this.speedy) * 16, time: 0});
+		
+	}
 	this.draw = function() {
 		ctx.fillStyle = "green";
 		ctx.fillRect(this.x, this.y, 16, 16);
@@ -113,6 +142,12 @@ function Player() {
 			var x = this.x + 8;
 			var y = this.y - 5 - (this.dialogue.length - i - 1) * 14;
 			ctx.fillText(str, x, y);
+		}
+		for (h of this.hitstrings) {
+			++h.time;
+			ctx.fillStyle = "rgba(255, 128, 0, " + (1 - h.time / 100) + ")";
+			ctx.textAlign = "center";
+			ctx.fillText(h.str, h.x, h.y);
 		}
 	}
 	this.dialogues = [
