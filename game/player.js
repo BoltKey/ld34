@@ -234,20 +234,21 @@ function Player() {
 			}
 		],
 		[	// 2
+			
 			{
-				condition: function() {return player.leveltime === 10},
-				string: function() {return ["I think I got the hang of it.", "It could be worse..."]}
-			}
-		], 
-		[	// 3
-			{
-				condition: function() {if (player.y > 150 && player.x < 130 && !player.dialogues[3][0].shown) {
+				condition: function() {if (player.y > 150 && player.x < 130 && !player.dialogues[2][0].shown) {
 												this.shown = true; 
 												return true;
 												}
 											},
 				string: function() {return ["This feels almost", "like dribbling", "a basketball :)"]},
 				shown: false
+			}
+		], 
+		[	// 3
+			{
+				condition: function() {return player.leveltime === 10},
+				string: function() {return ["I think I got the hang of it.", "It could be worse..."]}
 			}
 		],
 		[	// global
