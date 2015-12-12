@@ -27,6 +27,5 @@ $(document).keyup(keyrelease);
 
 <body style="margin: 0;">
 <canvas id="canvas"></canvas>
-<button type="button" class="btn btn-lg btn-primary" onclick="player.die()">Restart</button>
 
 </body>

@@ -3,6 +3,9 @@ function Player() {
 	this.speedy = 0;
 	this.dialogue = "";
 	this.totaldeaths = 0;
+	this.leveldeaths = 0;
+	this.deadpixels = [];
+	this.aliveTimer = 0;
 	this.hitstrings = [];
 	this.up = function() {
 		console.log("right");
@@ -17,7 +20,9 @@ function Player() {
 		this.y = level.start[1];
 		this.speedx = 0;
 		this.speedy = 0;
+		this.aliveTimer = 0;
 		this.dialogue = "";
+		dieSound.play();
 		++this.totaldeaths;
 		++this.leveldeaths;
 	}
@@ -27,10 +32,12 @@ function Player() {
 		this.speedx = 0;
 		this.speedy = 0;
 		this.leveltime = 0;
+		this.aliveTimer = 0;
 		this.helptimer = 0;
 		this.dialogue = "";
 		this.msgshown = false;
 		this.leveldeaths = 0;
+		this.hitstring = [];
 	}
 	this.newLevel();
 	this.speed = function() {
@@ -40,6 +47,7 @@ function Player() {
 		++this.leveltime;
 		++this.sametext;
 		++this.helptimer;
+		++this.aliveTimer;
 		this.x += this.speedx;
 		this.y += this.speedy;
 		this.speedy *= 0.994;
@@ -48,7 +56,11 @@ function Player() {
 		var temp = this.dialogues[currlevel].concat(this.dialogues[this.dialogues.length - 1])
 		for (d of temp) {
 			if (d.condition()) {
-				this.dialogue = d.string;
+				this.dialogue = d.string();
+				if (this.dialogue[0] === "One of my pixels just died.") {
+					this.deadpixels.push([Math.floor(Math.random() * 14) + 1, Math.floor(Math.random() * 14) + 1, 
+					"rgb(" + (128 + Math.floor(Math.random() * 128)) + ", 0, " + (128 + Math.floor(Math.random() * 128))]);
+				}
 				this.sametext = 0;
 			}
 		}
@@ -76,9 +88,11 @@ function Player() {
 				}
 				if (tile === 2) {
 					this.die();
+					return;
 				}
 				if (tile === 3) {
 					nextLevel();
+					return;
 				}
 			}
 		}
@@ -101,9 +115,11 @@ function Player() {
 				}
 				if (tile === 2) {
 					this.die();
+					return;
 				}
 				if (tile === 3) {
 					nextLevel();
+					return;
 				}
 			}
 		}
@@ -137,6 +153,11 @@ function Player() {
 		ctx.fillRect(this.x, this.y, 16, 16);
 		ctx.textAlign = "center";
 		ctx.font = "12px Arial";
+		for (p of this.deadpixels) {
+			ctx.fillStyle = p[2];
+			ctx.fillRect(this.x + p[0], this.y + p[1], 1, 1);
+		}
+		ctx.fillStyle = "green";
 		for (i = 0; i < this.dialogue.length; ++i) {
 			var str = this.dialogue[i];
 			var x = this.x + 8;
@@ -151,28 +172,28 @@ function Player() {
 		}
 	}
 	this.dialogues = [
-		[
+		[ 	// 0
 			{
 				condition: function() {return player.leveltime === 100},
-				string: ["..."]
+				string: function() {return ["..."]}
 			},
 			{
 				condition: function() {return player.leveltime === 200},
-				string: ["How did I get here?"]
+				string: function() {return ["How did I get here?"]}
 			},
 			{
 				condition: function() {return player.leveltime === 300},
-				string: ["Why is it so hot in here?"]
+				string: function() {return ["Why is it so hot in here?"]}
 			},
 			{
 				condition: function() {return player.leveltime === 400},
-				string: ["Wow, that looks like an exit,", " better get there ASAP"]
+				string: function() {return ["Wow, that looks like an exit,", " better get there ASAP"]}
 			}
 		],
-		[	
+		[	// 1
 			{
 				condition: function() {return player.leveltime === 50},
-				string: ["Another exit, that's slick!"]
+				string: function() {return ["Another exit, that's slick!"]}
 			},
 			{
 				condition: function() {
@@ -182,21 +203,21 @@ function Player() {
 						return true;
 					}
 				},
-				string: ["What's going on? I can't move!"]
+				string: function() {return ["What's going on? I can't move!"]}
 			},
 			{
 				condition: function() {	return (player.msgshown && player.helptimer === 100)	},
-				string: ["My legs! MY LEGS!", "I CAN'T FEEL THEM!"]
+				string: function() {return ["My legs! MY LEGS!", "I CAN'T FEEL THEM!"]}
 			},
 			{
 				condition: function() {	return (player.msgshown && player.helptimer === 230)	},
-				string: ["Ok. So it looks like I can only", 
-						" move up or right. What a day..."]
+				string: function() {return ["Ok. So it looks like I can only", 
+				" move up or right. What a day..."]}
 			},
 			{
 				condition: function() {	return (player.msgshown && player.helptimer === 420)	},
-				string: ["Maybe I could bounce off that corner?",
-						"that would be some goPro level stunt!"]
+				string: function() {return ["Maybe I could bounce off that corner?",
+				"that would be some goPro level stunt!"]}
 			},
 			{
 				condition: function() { if (player.x > 450 && player.y < 130) {
@@ -204,18 +225,30 @@ function Player() {
 											return true;
 										}
 									},
-				string: ["Woohoo!"],
+				string: function() {return ["Woohoo!"]},
 				shown: false
 			},
 			{
 				condition: function() {return player.dialogues[1][5].shown && player.speed() <= 0.2},
-				string: ["Darn, looks like I'll have to", "try again with better speed."]
+				string: function() {return ["Darn, looks like I'll have to", "try again with better speed."]}
 			}
 		],
-		[
-			
-				// global texts
-			
+		[], // 2
+		[	// global
+			{
+				condition: function() {return player.leveldeaths >= 1 && player.aliveTimer === 10},
+				string: function() {return [["That hurt."], 
+				["Ouch!"], 
+				["I am in great pain!"], 
+				["Fun fact: I will never ", "actually die"],
+				["Stop doing this to me!"],
+				["You should make a tutorial...", "called How to die 101. BWAHAHAHA!!!"],
+				["But what if", "I am not kill?"],
+				["Stop being sadist"], 
+				["One of my pixels just died.", "I hope you are happy now."],
+				["Squares have souls too!"]]
+				[Math.floor(Math.random() * 10)]}
+			}
 		]
 	]
 }

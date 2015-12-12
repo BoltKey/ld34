@@ -13,6 +13,7 @@ function main() {
 	for (i = 1; i <= 5; ++i) {
 		hitSounds.push(new Audio("sounds/hit" + i + ".wav"));
 	}
+	goalSound = new Audio("sounds/finish.wav");
 	music.loop = true;
 	//newButtons();
 	mainloop();
