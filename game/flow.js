@@ -14,9 +14,12 @@ function c(n) {
 }
 
 function nextLevel() {
-	++currlevel;
-	level = levels[currlevel];
-	Cookies.set("levelSave", currlevel, {expires: 30});
-	player.newLevel();
-	goalSound.play();
+	if (currlevel < levels.length - 1) {
+		++currlevel;
+		level = levels[currlevel];
+		Cookies.set("levelSave", currlevel, {expires: 30});
+		player.newLevel();
+		goalSound.play();
+	}
+	else player.die();	
 }

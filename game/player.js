@@ -326,6 +326,9 @@ function Player() {
 				shown: false
 			}
 		],
+		[	// 7
+			
+		],
 		[	// global
 			{
 				cases: 22,
