@@ -1,6 +1,8 @@
 function draw() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if (ingame) {
-		player.draw();
+		
 		level.draw();
+		player.draw();
 	}
 }

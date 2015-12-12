@@ -1,13 +1,25 @@
-Level = function(code) {
+Level = function(code, start) {
 	this.code = code;
+	this.start = start;
 	this.draw = function() {
 		i = 0;
-		for (line of code) {
+		for (line of this.code) {
 			j = 0;
 			for (tile of line) {
-				if (tile = 2)
-					ctx.fillStyle = "red";
-				ctx.fillRect(j * 16, i * 16, 15, 15);
+				switch(tile) {
+					case 2: 
+						ctx.fillStyle = "red";
+						break;
+					
+					case 1: 
+						ctx.fillStyle = "black";
+						break;
+						
+					case 0: 
+						ctx.fillStyle = "white";
+						break;
+				}
+				ctx.fillRect(j * 24, i * 24, 23, 23);
 				++j;
 			}
 			++i;

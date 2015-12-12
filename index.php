@@ -1,6 +1,6 @@
 <head>
 <meta charset="utf-8" />
-<title>LD 34 placehold</title>
+<title>Upright</title>
 <link rel="shortcut icon" href="/boltlogo.png">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">

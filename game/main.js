@@ -6,5 +6,6 @@ function main() {
 	resize();
 	newButtons();
 	navigateMenu(0);
+	ingame = false;
 	mainloop();
 }

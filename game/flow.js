@@ -1,3 +1,4 @@
+var level;
 function toGame() {
 	console.log("ingame");
 	level = levels[0];
