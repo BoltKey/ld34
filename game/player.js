@@ -12,11 +12,11 @@ function Player() {
 	this.hitstrings = [];
 	this.up = function() {
 		console.log("right");
-		this.speedy -= (this.onIce ? 0.006 : 0.03);
+		this.speedy -= Math.pow((this.width / 16), 2)*(this.onIce ? 0.006 : 0.03);
 	}
 	this.right = function() {
 		console.log("up");
-		this.speedx += (this.onIce ? 0.006 : 0.03);
+		this.speedx += Math.pow((this.width / 16), 2)*(this.onIce ? 0.006 : 0.03);
 	}
 	this.die = function() {
 		this.x = level.start[0];
@@ -62,7 +62,12 @@ function Player() {
 			this.speedx *= 0.994;
 		}
 		if (this.growing) {
-			this.width += 0.1;
+			this.width += 0.04;
+			this.x -= 0.02;
+			this.y -= 0.02;
+			if (this.width >= 48) {
+				this.die();
+			}
 		}
 		this.speedx += 0.02 * this.gravity[0];
 		this.speedy += 0.02 * this.gravity[1];
@@ -84,8 +89,8 @@ function Player() {
 		}
 	}
 	this.checkIce = function() {
-		var x = Math.floor((this.x + 8) / 24);
-		var y = Math.floor((this.y + 8) / 24);
+		var x = Math.floor((this.x + this.width / 2) / 24);
+		var y = Math.floor((this.y + this.width / 2) / 24);
 		this.onIce = false;
 		this.gravity = [0, 0];
 		this.growing = false;
@@ -110,15 +115,16 @@ function Player() {
 				break;
 		}
 	}
-	this.checkcollision = function() {
-		var x = Math.floor(this.x / 24)
-		var y = Math.floor(this.y / 24)
+	this.checkcollision = function() {  // please... don't read this code. Just... don't... it's a monster...
+		var x = Math.floor(this.x / 24);
+		var y = Math.floor(this.y / 24);
 		var c = true;
 		var mod = (this.speedx > 0 ? this.width : 0);
 		var h = (this.speedx > 0 ? 1 : -1);
-		if (Math.floor((this.x + this.speedx + mod + 0.01 * h) / 24) === Math.floor((this.x + mod) / 24 + h)) {
-			for (var i = 0; i < ((this.y % 24 < 8 || (this.y + this.speedy) % 24 < 8) ? 1 : 2); ++i) {
-				var tile = level.code[y + i][x + h];
+		if (Math.floor((this.x + this.speedx + mod + 0.01 * Math.pow(this.width - 16, 2) * h) / 24) === Math.floor((this.x + mod) / 24 + h)) {
+			var maxi = ((this.y % 24 < 24 - (this.width % 24) || (this.y + this.speedy) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width > 24 ? 1 : 0);
+			for (var i = 0; i < maxi; ++i) {
+				var tile = level.code[y + i][x + h + (this.width > 24 ? 1 : 0)];
 				if (tile === 1 && c) {
 					if (Math.abs(this.speedx) <  0.5) {
 						this.speedx = Math.sign(this.speedx) * 0.5;
@@ -143,9 +149,10 @@ function Player() {
 		c = true;
 		mod = (this.speedy > 0 ? this.width : 0);
 		h = (this.speedy > 0 ? 1 : -1);
-		if (Math.floor((this.y + this.speedy + mod + 0.01 * h) / 24) === Math.floor((this.y + mod) / 24 + h)) {
-			for (var i = 0; i < ((this.x % 24 < 8) ? 1 : 2); ++i) {
-				var tile = level.code[y + h][x + i];
+		if (Math.floor((this.y + this.speedy + mod + 0.01 * Math.pow(this.width - 16, 2) * h) / 24) === Math.floor((this.y + mod) / 24 + h)) {
+			var maxi = ((this.x % 24 < 24 - (this.width % 24) || (this.x + this.speedyx) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width > 24 ? 1 : 0);
+			for (var i = 0; i < maxi; ++i) {
+				var tile = level.code[y + h + (this.width > 24 ? 1 : 0)][x + i];
 				if (tile === 1 && c) {
 					if (Math.abs(this.speedy) < 0.5) {
 						this.speedy = Math.sign(this.speedy) * 0.5;
