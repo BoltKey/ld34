@@ -4,7 +4,7 @@ function draw() {
 		
 		level.draw();
 		player.draw();
-		ctx.textAlign = "Left";
+		ctx.textAlign = "left";
 		for (t of texts) {
 			if (t.level === currlevel) {
 				ctx.fillStyle = t.color;

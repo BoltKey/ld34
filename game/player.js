@@ -1,7 +1,8 @@
 function Player() {
 	this.speedx = 0;
 	this.speedy = 0;
-	
+	this.dialogue = "";
+	this.totaldeaths = 0;
 	this.up = function() {
 		console.log("right");
 		this.speedy -= 0.03;
@@ -15,18 +16,39 @@ function Player() {
 		this.y = level.start[1];
 		this.speedx = 0;
 		this.speedy = 0;
+		this.dialogue = "";
+		++this.totaldeaths;
+		++this.leveldeaths;
 	}
 	this.newLevel = function() {
 		this.x = level.start[0];
 		this.y = level.start[1];
 		this.speedx = 0;
 		this.speedy = 0;
+		this.leveltime = 0;
+		this.helptimer = 0;
+		this.dialogue = "";
+		this.msgshown = false;
+		this.leveldeaths = 0;
 	}
 	this.newLevel();
 	this.update = function() {
+		++this.leveltime;
+		++this.sametext;
+		++this.helptimer;
 		this.x += this.speedx;
 		this.y += this.speedy;
 		this.checkcollision();
+		var temp = this.dialogues[currlevel].concat(this.dialogues[this.dialogues.length - 1])
+		for (d of temp) {
+			if (d.condition()) {
+				this.dialogue = d.string;
+				this.sametext = 0;
+			}
+		}
+		if (this.sametext > 150 * this.dialogue.length) {
+			this.dialogue = [];
+		}
 	}
 	this.checkcollision = function() {
 		var x = Math.floor(this.x / 24)
@@ -79,10 +101,66 @@ function Player() {
 	this.draw = function() {
 		ctx.fillStyle = "green";
 		ctx.fillRect(this.x, this.y, 16, 16);
-		if (Math.sqrt(Math.pow(Math.abs(this.speedx), 2) + Math.pow(Math.abs(this.speedy), 2)) >= 4) {
-			ctx.textAlign = "Center";
-			ctx.font = "8px Arial";
-			ctx.fillText("WEEEEE!!!!", this.x + 8, this.y - 5);
+		ctx.textAlign = "center";
+		ctx.font = "12px Arial";
+		for (i = 0; i < this.dialogue.length; ++i) {
+			ctx.fillText(this.dialogue[i], this.x + 8, this.y - 5 - (this.dialogue.length - i - 1) * 14);
 		}
 	}
+	this.dialogues = [
+		[
+			{
+				condition: function() {return player.leveltime === 200},
+				string: ["..."]
+			},
+			{
+				condition: function() {return player.leveltime === 300},
+				string: ["How did I get here?"]
+			},
+			{
+				condition: function() {return player.leveltime === 400},
+				string: ["Why is it so hot in here?"]
+			},
+			{
+				condition: function() {return player.leveltime === 500},
+				string: ["Wow, that looks like an exit,", " better get there ASAP"]
+			}
+		],
+		[	
+			{
+				condition: function() {return player.leveltime === 50},
+				string: ["Another exit, that's slick!"]
+			},
+			{
+				condition: function() {
+					if (!player.msgshown && (pressedkeys.indexOf(37) > 0 || pressedkeys.indexOf(40) > 0)){
+						player.msgshown = true;
+						player.helptimer = 0;
+						return true;
+					}
+				},
+				string: ["What's going on? I can't move!"]
+			},
+			{
+				condition: function() {	return (player.msgshown && player.helptimer === 50)	},
+				string: ["My legs! MY LEGS!", "I CAN'T FEEL THEM!"]
+			},
+			{
+				condition: function() {	return (player.msgshown && player.helptimer === 150)	},
+				string: ["Ok. So it looks like I can only", 
+						" move up or right. What a day..."]
+			},
+			{
+				condition: function() {	return (player.msgshown && player.helptimer === 320)	},
+				string: ["Maybe I could bounce off that corner?",
+						"that would be some goPro level stunt!"]
+			}
+		],
+		[
+			{
+				condition: function() {return Math.sqrt(Math.pow(Math.abs(player.speedx), 2) + Math.pow(Math.abs(player.speedy), 2)) >= 4}, 
+				string: ["WEEEEE!!!!"]
+			}
+		]
+	]
 }
