@@ -6,6 +6,7 @@
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script>var levels = [];</script>
 
 <?php
 $i = 0;

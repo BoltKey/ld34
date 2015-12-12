@@ -3,4 +3,5 @@ function mainloop() {
 	for (i of pressedkeys) {
 		keyholdaction(i);
 	}
+	draw();
 }

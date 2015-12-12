@@ -1,3 +1,6 @@
 function draw() {
-	player.draw();
+	if (ingame) {
+		player.draw();
+		level.draw();
+	}
 }
