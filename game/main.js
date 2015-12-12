@@ -1,5 +1,5 @@
 var player;
-
+var texts;
 function main() {
 	canvas = $("#canvas")[0];
 	ctx = canvas.getContext("2d");

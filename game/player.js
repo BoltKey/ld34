@@ -79,5 +79,10 @@ function Player() {
 	this.draw = function() {
 		ctx.fillStyle = "green";
 		ctx.fillRect(this.x, this.y, 16, 16);
+		if (Math.sqrt(Math.pow(Math.abs(this.speedx), 2) + Math.pow(Math.abs(this.speedy), 2)) >= 4) {
+			ctx.textAlign = "Center";
+			ctx.font = "8px Arial";
+			ctx.fillText("WEEEEE!!!!", this.x + 8, this.y - 5);
+		}
 	}
 }
