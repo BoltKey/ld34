@@ -1,10 +1,20 @@
 function mainloop() {
 	window.requestAnimationFrame(mainloop);
-	for (i of pressedkeys) {
-		keyholdaction(i);
+	if (starttimer > 0) {
+		--starttimer;
+		drawlogo(starttimer);
 	}
-	if (ingame) {
-		player.update();
+	else if (starttimer === 0) {
+		toGame();
+		--starttimer;
 	}
-	draw();
+	else {
+		for (i of pressedkeys) {
+			keyholdaction(i);
+		}
+		if (ingame) {
+			player.update();
+		}
+		draw();
+	}
 }

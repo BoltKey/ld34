@@ -1,6 +1,9 @@
 var player;
 var texts;
 var ingame;
+var starttimer = 120;
+logoimg = new Image();
+logoimg.src = "http://boltkey.cz/boltkeylogo.png";
 function main() {
 	canvas = $("#canvas")[0];
 	ctx = canvas.getContext("2d");
@@ -18,6 +21,4 @@ function main() {
 	music.loop = true;
 	//newButtons();
 	mainloop();
-	ingame = true;
-	toGame();
 }

@@ -2,7 +2,7 @@ var level;
 var currlevel;
 function toGame() {
 	console.log("ingame");
-	currlevel = 4;
+	currlevel = 0;
 	level = levels[currlevel];
 	ingame = true;
 	player = new Player();
@@ -14,8 +14,3 @@ function nextLevel() {
 	player.newLevel();
 	goalSound.play();
 }
-
-/*function goBack() {
-	console.log("goin back");
-	navigateMenu(0);
-}*/
