@@ -19,7 +19,6 @@ foreach (glob("game/*.js") as $filename)
 ?>
 <script>
 window.onload = main;
-window.onresize = resize;
 $(document).keydown(keypush);
 $(document).keyup(keyrelease);
 </script>

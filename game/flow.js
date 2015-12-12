@@ -2,7 +2,7 @@ var level;
 var currlevel;
 function toGame() {
 	console.log("ingame");
-	currlevel = 0;
+	currlevel = 4;
 	level = levels[currlevel];
 	ingame = true;
 	player = new Player();
