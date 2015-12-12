@@ -1,3 +1,4 @@
+var pressedkeys = [];
 function keypush(ev) {
 	if([17, 27, 37, 38, 39, 40, 32, 82].indexOf(ev.keyCode) > -1) {  
         ev.preventDefault();

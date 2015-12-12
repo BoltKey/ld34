@@ -6,7 +6,7 @@ function toGame() {
 	level = levels[currlevel];
 	ingame = true;
 	player = new Player();
-	navigateMenu(1);
+	//navigateMenu(1);
 }
 
 function nextLevel() {

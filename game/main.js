@@ -1,11 +1,14 @@
 var player;
 var texts;
+var ingame;
 function main() {
 	canvas = $("#canvas")[0];
 	ctx = canvas.getContext("2d");
 	resize();
-	newButtons();
-	navigateMenu(0);
-	ingame = false;
+	
+	music = new Audio(
+	//newButtons();
 	mainloop();
+	ingame = true;
+	toGame();
 }

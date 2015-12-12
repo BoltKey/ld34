@@ -32,12 +32,17 @@ function Player() {
 		this.leveldeaths = 0;
 	}
 	this.newLevel();
+	this.speed = function() {
+		return Math.sqrt(Math.pow(Math.abs(player.speedx), 2) + Math.pow(Math.abs(player.speedy), 2));
+	}
 	this.update = function() {
 		++this.leveltime;
 		++this.sametext;
 		++this.helptimer;
 		this.x += this.speedx;
 		this.y += this.speedy;
+		this.speedy *= 0.994;
+		this.speedx *= 0.994;
 		this.checkcollision();
 		var temp = this.dialogues[currlevel].concat(this.dialogues[this.dialogues.length - 1])
 		for (d of temp) {
@@ -46,7 +51,7 @@ function Player() {
 				this.sametext = 0;
 			}
 		}
-		if (this.sametext > 150 * this.dialogue.length) {
+		if (this.sametext > 90 * this.dialogue.length) {
 			this.dialogue = [];
 		}
 	}
@@ -104,25 +109,28 @@ function Player() {
 		ctx.textAlign = "center";
 		ctx.font = "12px Arial";
 		for (i = 0; i < this.dialogue.length; ++i) {
-			ctx.fillText(this.dialogue[i], this.x + 8, this.y - 5 - (this.dialogue.length - i - 1) * 14);
+			var str = this.dialogue[i];
+			var x = this.x + 8;
+			var y = this.y - 5 - (this.dialogue.length - i - 1) * 14;
+			ctx.fillText(str, x, y);
 		}
 	}
 	this.dialogues = [
 		[
 			{
-				condition: function() {return player.leveltime === 200},
+				condition: function() {return player.leveltime === 100},
 				string: ["..."]
 			},
 			{
-				condition: function() {return player.leveltime === 300},
+				condition: function() {return player.leveltime === 200},
 				string: ["How did I get here?"]
 			},
 			{
-				condition: function() {return player.leveltime === 400},
+				condition: function() {return player.leveltime === 300},
 				string: ["Why is it so hot in here?"]
 			},
 			{
-				condition: function() {return player.leveltime === 500},
+				condition: function() {return player.leveltime === 400},
 				string: ["Wow, that looks like an exit,", " better get there ASAP"]
 			}
 		],
@@ -142,25 +150,37 @@ function Player() {
 				string: ["What's going on? I can't move!"]
 			},
 			{
-				condition: function() {	return (player.msgshown && player.helptimer === 50)	},
+				condition: function() {	return (player.msgshown && player.helptimer === 100)	},
 				string: ["My legs! MY LEGS!", "I CAN'T FEEL THEM!"]
 			},
 			{
-				condition: function() {	return (player.msgshown && player.helptimer === 150)	},
+				condition: function() {	return (player.msgshown && player.helptimer === 230)	},
 				string: ["Ok. So it looks like I can only", 
 						" move up or right. What a day..."]
 			},
 			{
-				condition: function() {	return (player.msgshown && player.helptimer === 320)	},
+				condition: function() {	return (player.msgshown && player.helptimer === 420)	},
 				string: ["Maybe I could bounce off that corner?",
 						"that would be some goPro level stunt!"]
+			},
+			{
+				condition: function() { if (player.x > 450 && player.y < 130) {
+											this.shown = true;
+											return true;
+										}
+									},
+				string: ["Woohoo!"],
+				shown: false
+			},
+			{
+				condition: function() {return player.dialogues[1][5].shown && player.speed() <= 0.2},
+				string: ["Darn, looks like I'll have to", "try again with better speed."]
 			}
 		],
 		[
-			{
-				condition: function() {return Math.sqrt(Math.pow(Math.abs(player.speedx), 2) + Math.pow(Math.abs(player.speedy), 2)) >= 4}, 
-				string: ["WEEEEE!!!!"]
-			}
+			
+				// global texts
+			
 		]
 	]
 }

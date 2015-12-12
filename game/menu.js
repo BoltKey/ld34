@@ -1,4 +1,4 @@
-var menubuttons;
+/*var menubuttons;
 var pressedkeys = [];
 function newButtons() {
 	menubuttons = [
@@ -19,4 +19,4 @@ function navigateMenu(id) {
 			$("body").append(a);
 		}
 	}
-}
+}*/
