@@ -123,7 +123,7 @@ function Player() {
 		var mod = (this.speedx > 0 ? this.width : 0);
 		var h = (this.speedx > 0 ? 1 : -1);
 		if (Math.floor((this.x + this.speedx + mod + 0.01 * Math.pow(this.width - 16, 2) * h) / 24) === Math.floor((this.x + mod) / 24 + h)) {
-			var maxi = ((this.y % 24 < 24 - (this.width % 24) || (this.y + this.speedy) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width > 24 ? 1 : 0);
+			var maxi = ((this.y % 24 < 24 - (this.width % 24) || (this.y + this.speedy) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width >= 24 ? 1 : 0);
 			for (var i = 0; i < maxi; ++i) {
 				var tile = level.code[y + i][x + h + ((this.width > 24 && this.speedx > 0) ? 1 : 0)];
 				if (tile === 1 && c) {
@@ -151,7 +151,7 @@ function Player() {
 		mod = (this.speedy > 0 ? this.width : 0);
 		h = (this.speedy > 0 ? 1 : -1);
 		if (Math.floor((this.y + this.speedy + mod + 0.01 * Math.pow(this.width - 16, 2) * h) / 24) === Math.floor((this.y + mod) / 24 + h)) {
-			var maxi = ((this.x % 24 < 24 - (this.width % 24) || (this.x + this.speedyx) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width > 24 ? 1 : 0);
+			var maxi = ((this.x % 24 < 24 - (this.width % 24) || (this.x + this.speedx) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width >= 24 ? 1 : 0);
 			for (var i = 0; i < maxi; ++i) {
 				var tile = level.code[y + h + ((this.width > 24 && this.speedy > 0) ? 1 : 0)][x + i];
 				if (tile === 1 && c) {
