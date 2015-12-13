@@ -177,9 +177,6 @@ var dialogues = [
 	[	// 11
 	
 	],
-	[	// 12
-	
-	],
 	[	// credits
 		
 	],
@@ -248,3 +245,42 @@ var dialogues = [
 		}
 	]
 ]
+var i = 0;
+for (s of [  // Hi random stranger... you are not supposed to read this, go win the game. If you are reading through my code, I am sorry for all the ugly duplications and similar evil things in my code. I am learning... But I am glad someone is interested.
+		"Hey!", " Don't touch a key!", "I got this one", 
+		"See?", "Anyway, I really enjoyed this.",
+		"I really hope you did too.", "Anyway, it is time",
+		"to say good bye.", "I don't want to",
+		"but everything has to end.", "It was really pleasant experience",
+		"to play through this game", "with you",
+		"Phew, that was close.", "Now, this is the end.",
+		"Really.", "Feel free to exit.", "There is nothing more to see.",
+		"", "You little rebel.", "I like you.", "So, you want to stay here with me?",
+		"Like I said,", " you have personal bond with me.", "You want me to talk?",
+		"Well, I guess I have no choice", "It would be weird", " if you did the talking.",
+		"So you like this sort of stuff?", "I am glad for that. ", "At least my creator wrote this up",
+		"for a reason.", "Also, congratulations", "for finishing all the levels.", "I think some of them",
+		"were pretty hard.", "Oh, all this time", "we were together", "and I forgot to", "introduce myself",
+		"My name is", "Square Green", "Thank you for your company.", "I am really glad someone stays with me",
+		"even after all my", "annoying insults.", "I will have to let BoltKey", "say something...", 
+		"Ok, this is Square Green signing off.", "Ok, BoltKey talking", "However you got here, I would like to",
+		"thank you with all my heart for", " playing through my game", "or reading through my code.", 
+		"This is exactly what keeps me happy", "when there are at least SOME people", "that enjoy stuff I created",
+		"which I suppose you did, since you are here.", "This was my first Ludum Dare experience,", 
+		"and it was great.", "Mostly for the people.", "Everyone patiently answered", "all my newb questions",
+		"and this whole community is just...", "great.", "I actually turned down a trip", "to Paris", 
+		"(where I have never been)", "mainly becuase I wanted", "to participate in LD, ", "and it was well worth it.",
+		"I have been alone this weekend,", "but the IRC folks were there all the time", "so yeah, I am really glad", 
+		"I finally got to compete", "This was first free weeken in months", "for me, and I am", "super happy LD",
+		"happened to happen this weekend", "Ok, I think that is all for now.", "Thanks for playing!", "No, for real",
+		"this means so much to me.", "No more tricks, this is it.", "Default quotes will start", "to roll after this."
+		
+	
+	
+	]) {
+	dialogues[dialogues.length-2].push(
+		{condition: new Function("a", "return player.leveltime === " + (20 + 120 * i)),
+		string: new Function("a", ' { return["'+ s + '"] }') }
+	)
+	++i;
+	}
