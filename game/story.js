@@ -139,11 +139,16 @@ var dialogues = [
 			shown: false
 		}
 	], 
-	[	// 3
+	
+	[  // 3
 		{
 			condition: function() {return player.leveltime === 10},
-			string: function() {return ["I think I got the hang of it.", "It could be worse..."]}
+			string: function() {return ["Holy cow!"]}
 		},
+		{
+			condition: function() {return player.leveltime === 100},
+			string: function() {return ["This looks dangerous!"]}
+		}, 
 		{
 			condition: function() {if(player.onIce && !this.shown) {
 									this.shown = true;
@@ -154,15 +159,12 @@ var dialogues = [
 			string: function() {return ["It looks like ice.", "It is slipery as ice.", "I guess it is ice"]}
 		}
 	],
-	[  // 4
+	[	// 4
 		{
 			condition: function() {return player.leveltime === 10},
-			string: function() {return ["Holy cow!"]}
+			string: function() {return ["I think I got the hang of it.", "It could be worse..."]}
 		},
-		{
-			condition: function() {return player.leveltime === 100},
-			string: function() {return ["This looks dangerous!"]}
-		}
+		
 	],
 	[  // 5
 	
@@ -187,6 +189,7 @@ var dialogues = [
 			string: function() {return ["These arrows are fun ^^"]}
 		}
 	],
+
 	[	// 7
 		
 	],
@@ -208,7 +211,7 @@ var dialogues = [
 	[	// 9
 		{
 			condition: function() {return player.leveltime === 20},
-			string: function() {return ["So apparently the bigger", "I am, the faster I accelerate"]}
+			string: function() {return ["So apparently the bigger I am, ", "the faster I accelerate"]}
 		}
 	],
 	[	// 10
@@ -219,6 +222,9 @@ var dialogues = [
 	],
 	[	// 12
 		
+	],
+	[	// 13
+	
 	],
 	[	// credits
 		

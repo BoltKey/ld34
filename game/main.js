@@ -10,8 +10,8 @@ function main() {
 	canvas = $("#canvas")[0];
 	ctx = canvas.getContext("2d");
 	
-	canvas.height = window.innerHeight;
-	canvas.width = window.innerWidth;
+	canvas.height = 480;
+	canvas.width = 768;
 	
 	music = new Audio("sounds/music.wav");
 	music.volume = 0.3;

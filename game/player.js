@@ -199,6 +199,7 @@ function Player() {
 		
 	}
 	this.draw = function() {
+		ctx.font = "12px Arial";
 		ctx.fillStyle = "green";
 		ctx.fillRect(this.x, this.y, this.width, this.width);
 		ctx.textAlign = "center";

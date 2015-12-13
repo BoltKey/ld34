@@ -10,6 +10,7 @@ Level = function(code, start) {
 		this.randomColors.push(toPush);
 	}
 	this.draw = function(full) {
+		ctx.font = "18px Arial";
 		i = 0;
 		for (line of this.code) {
 			j = 0;
@@ -17,7 +18,7 @@ Level = function(code, start) {
 				var s = "";
 				switch(tile) {
 					case 4:
-						ctx.fillStyle = "#bbbbff";
+						ctx.fillStyle = "rgb(" + (this.randomColors[i][j] - 60) + ", " + (this.randomColors[i][j] - 60) + ", 255)";
 						break;
 					case 3:
 						ctx.fillStyle = "purple";
@@ -56,7 +57,7 @@ Level = function(code, start) {
 				}
 				ctx.fillRect(j * 24, i * 24, 24, 24);
 				ctx.fillStyle = "magenta";
-				ctx.fontSize = 18;
+				
 				ctx.textAlign = "center";
 				ctx.fillText(s, j * 24 + 12, i * 24 + 16);
 				++j;
