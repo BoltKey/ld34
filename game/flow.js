@@ -5,7 +5,7 @@ function toGame() {
 	currlevel = Cookies.get("levelSave");
 	if (typeof(currlevel) === "undefined") currlevel = 0;
 	level = levels[currlevel];
-	//music.play();
+	music.play();
 	ingame = true;
 	player = new Player();
 	level.draw(true);
