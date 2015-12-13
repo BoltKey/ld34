@@ -141,6 +141,10 @@ var dialogues = [
 				},
 			string: function() {return ["It seems to change gravity"]},
 			shown: false
+		},
+		{
+			condition: function() {return player.gravity[0] === 1},
+			string: function() {return ["These arrows are fun ^^"]}
 		}
 	],
 	[	// 7
@@ -173,13 +177,19 @@ var dialogues = [
 	[	// 11
 	
 	],
+	[	// 12
+	
+	],
+	[	// credits
+		
+	],
 	[	// global
 		{
 			condition: function() {return player.width > 42 && player.growing},
 			string: function() {return ["I feel like I will", "explode soon!"]}
 		},
 		{
-			cases: 23,
+			cases: 24,
 			condition: function() {return player.leveldeaths >= 1 && player.aliveTimer === 10},
 			string: function() {return [
 			["That hurt."], 
@@ -200,11 +210,12 @@ var dialogues = [
 			["There is no death penalty...", "except for frustration"],
 			["I may have just died, but", "at least I'm not green"],
 			["Is it lava?", "Or just a lot of berries?"],
-			["I'm not gonna lie", "I want you to keep playing", "just so you see all of these quotes"],
+			["I'm not gonna lie", "I want you to keep playing", "just to see all of these quotes"],
 			["This game is actually", " controlled with 4 keys"],
 			["I am not racist", "I am just allergic to some colours"],
 			["That was unfair"],
-			["All the quotes are random...", "except for this one...", "this one is controlled by fate"]
+			["All the quotes are random...", "except for this one...", "this one is controlled by fate"],
+			["Wow", "Much die", "Very pain"]
 			]
 			[Math.floor(Math.random() * this.cases)]}
 		},
