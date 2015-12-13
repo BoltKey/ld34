@@ -18,6 +18,7 @@ function main() {
 		hitSounds.push(new Audio("sounds/hit" + i + ".wav"));
 	}
 	goalSound = new Audio("sounds/finish.wav");
+	goalSound.volume = 0.4;
 	music.loop = true;
 	mainloop();
 }
