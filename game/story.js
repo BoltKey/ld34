@@ -167,6 +167,12 @@ var dialogues = [
 			string: function() {return ["So apparently the bigger", "I am, the faster I accelerate"]}
 		}
 	],
+	[	// 10
+	
+	],
+	[	// 11
+	
+	],
 	[	// global
 		{
 			condition: function() {return player.width > 42 && player.growing},
