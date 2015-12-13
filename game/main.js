@@ -11,7 +11,8 @@ function main() {
 	canvas.width = window.innerWidth;
 	
 	music = new Audio("sounds/music.wav");
-	//music.play();
+	music.volume = 0.3;
+	music.play();
 	dieSound = new Audio("sounds/die.wav");
 	hitSounds = [];
 	for (i = 1; i <= 5; ++i) {

@@ -6,7 +6,7 @@ function draw() {
 		player.draw();
 		ctx.textAlign = "left";
 		for (t of texts) {
-			if (t.level === currlevel) {
+			if (t.level == currlevel) {
 				ctx.fillStyle = t.color;
 				ctx.font = t.size + "px Arial";
 				for (i = 0; i < t.string.length; ++i) {

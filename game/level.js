@@ -1,6 +1,14 @@
 Level = function(code, start) {
 	this.code = code;
 	this.start = start;
+	this.randomColors = []
+	for (line of this.code) {
+		toPush = [];
+		for (tile of line) {
+			toPush.push("rgb(" + (235 + (Math.floor(Math.random() * 20))) + ", 0, 0)");
+		}
+		this.randomColors.push(toPush);
+	}
 	this.draw = function() {
 		i = 0;
 		for (line of this.code) {
@@ -15,7 +23,7 @@ Level = function(code, start) {
 						ctx.fillStyle = "purple";
 						break;
 					case 2: 
-						ctx.fillStyle = "red";
+						ctx.fillStyle = this.randomColors[i][j];
 						break;
 					
 					case 1: 

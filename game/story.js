@@ -4,7 +4,7 @@ texts = [
 		x: 20, y: 30, 
 		level: 0, color: "#ffffff"
 		},
-	{string: [	"This time, themes are 'two button controls'", "and 'grow'"], 
+	{string: [	"This time, themes are 'two ", "button controls'and 'grow'"], 
 		size: 17,
 		x: 450, y: 100, 
 		level: 0, color: "#ffffff"
@@ -152,9 +152,19 @@ var dialogues = [
 			shown: false
 		}
 	],
+	[	// 9
+		{
+			condition: function() {return player.leveltime === 20},
+			string: function() {return ["So apparently the bigger", "I am, the faster I accelerate"]}
+		}
+	],
 	[	// global
 		{
-			cases: 22,
+			condition: function() {return player.width > 42 && player.growing},
+			string: function() {return ["I feel like I will", "explode soon!"]}
+		},
+		{
+			cases: 23,
 			condition: function() {return player.leveldeaths >= 1 && player.aliveTimer === 10},
 			string: function() {return [
 			["That hurt."], 
@@ -173,7 +183,7 @@ var dialogues = [
 			["THIS IS 1,000,000th GLOBAL DEATH!", "GO CLAIM PRIZE TO CPYGN.RU!!!!!!!"],
 			["Really?"],
 			["There is no death penalty...", "except for frustration"],
-			["I may have just died, but at least", "I'm not green"],
+			["I may have just died, but", "at least I'm not green"],
 			["Is it lava?", "Or just a lot of berries?"],
 			["I'm not gonna lie", "I want you to keep playing", "just so you see all of these quotes"],
 			["This game is actually", " controlled with 4 keys"],
