@@ -226,6 +226,12 @@ var dialogues = [
 	[	// 13
 	
 	],
+	[	// 14
+		{
+			condition: function() {return player.leveltime === 20},
+			string: function() {return ["So close,", " yet so far..."]}
+		}
+	],
 	[	// credits
 		
 	],
