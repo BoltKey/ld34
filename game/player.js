@@ -125,7 +125,7 @@ function Player() {
 		if (Math.floor((this.x + this.speedx + mod + 0.01 * Math.pow(this.width - 16, 2) * h) / 24) === Math.floor((this.x + mod) / 24 + h)) {
 			var maxi = ((this.y % 24 < 24 - (this.width % 24) || (this.y + this.speedy) % 24 < 24 - (this.width % 24)) ? 1 : 2) + (this.width >= 24 ? 1 : 0);
 			for (var i = 0; i < maxi; ++i) {
-				var tile = level.code[y + i][x + h + ((this.width > 24 && this.speedx > 0) ? 1 : 0)];
+				var tile = level.code[y + i][x + h + ((this.width > 24 && this.speedx > 0) ? 1 : 0) + ((x < Math.floor((player.x + player.width) / 24) && player.width < 24 && player.speedx > 0 ) ? 1 : 0 )];
 				if (tile === 1 && c) {
 					if (Math.abs(this.speedx) <  0.5) {
 						this.speedx = Math.sign(this.speedx) * 0.5;
