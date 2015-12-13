@@ -88,6 +88,15 @@ var dialogues = [
 										},
 			string: function() {return ["This feels almost", "like dribbling", "a basketball :)"]},
 			shown: false
+		},
+		{
+			condition: function() {if (player.x > 200 && !this.shown) {
+											this.shown = true; 
+											return true;
+											}
+										},
+			string: function() {return ["SPAAAACE!!!"]},
+			shown: false
 		}
 	], 
 	[	// 3
@@ -179,8 +188,8 @@ var dialogues = [
 			["Squares have souls too!"], 
 			["It is getting repetitive.", "I died " + player.totaldeaths + " times already!"],
 			["There was chance of 1 in " + this.cases, "that you get this quote now.", "You should feel lucky"],
-			["These quotes and hit effects", "are the only random events", "in the game"],
-			["THIS IS 1,000,000th GLOBAL DEATH!", "GO CLAIM PRIZE TO CPYGN.RU!!!!!!!"],
+			["These quotes, hit effects and", "tile colors are the only random events", "in the game"],
+			["THIS IS 1,000,000TH GLOBAL DEATH!", "GO CLAIM PRIZE ON CPYGN.RU!!!!!!!"],
 			["Really?"],
 			["There is no death penalty...", "except for frustration"],
 			["I may have just died, but", "at least I'm not green"],
@@ -190,6 +199,33 @@ var dialogues = [
 			["I am not racist", "I am just allergic to some colours"],
 			["That was unfair"],
 			["All the quotes are random...", "except for this one...", "this one is controlled by fate"]
+			]
+			[Math.floor(Math.random() * this.cases)]}
+		},
+		{
+			cases: 20,
+			condition: function() {return player.sametext === 600},
+			string: function() {return [
+			["I like cats."], 
+			["Nice weather huh?"], 
+			["I am bored."], 
+			["These words exist", "in your head only"],
+			["Thanks for sparing me ^^"],
+			["That music is so", "annoying. I like it."],
+			["Internet... is a", "weird place to live..."],
+			["I am just several lights", "in a pattern, yet you", "have a personal bond with me."], 
+			["With some imagination,", "every game is violent"],
+			["Hey! I like you!"],
+			["Thanks for playing!"],
+			["Knock knock", "Who's there?", "5 stars for humor!"],
+			["LoL > DotA"],
+			["Top kek"],
+			["I have nothing more to say."],
+			["Your mother was a murloc!", "hahahaha"],
+			["squares > trianles"],
+			["3rd dimension? On which level", "do I earn it?"],
+			["Which team am I on?"],
+			["Let me win this for you...", "With which key od you jump?"],
 			]
 			[Math.floor(Math.random() * this.cases)]}
 		}

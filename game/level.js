@@ -5,11 +5,11 @@ Level = function(code, start) {
 	for (line of this.code) {
 		toPush = [];
 		for (tile of line) {
-			toPush.push("rgb(" + (235 + (Math.floor(Math.random() * 20))) + ", 0, 0)");
+			toPush.push(235 + (Math.floor(Math.random() * 20)));
 		}
 		this.randomColors.push(toPush);
 	}
-	this.draw = function() {
+	this.draw = function(full) {
 		i = 0;
 		for (line of this.code) {
 			j = 0;
@@ -23,7 +23,7 @@ Level = function(code, start) {
 						ctx.fillStyle = "purple";
 						break;
 					case 2: 
-						ctx.fillStyle = this.randomColors[i][j];
+						ctx.fillStyle = "rgb(" + this.randomColors[i][j] + ", 0, 0)";
 						break;
 					
 					case 1: 
@@ -31,7 +31,7 @@ Level = function(code, start) {
 						break;
 						
 					case 0: 
-						ctx.fillStyle = "white";
+						ctx.fillStyle = "rgb(" + this.randomColors[i][j] + ", " + this.randomColors[i][j] + ", " + this.randomColors[i][j] + ")";
 						break;
 						
 					case 5:

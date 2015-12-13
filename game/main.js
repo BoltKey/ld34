@@ -12,7 +12,7 @@ function main() {
 	
 	music = new Audio("sounds/music.wav");
 	music.volume = 0.3;
-	music.play();
+	//music.play();
 	dieSound = new Audio("sounds/die.wav");
 	hitSounds = [];
 	for (i = 1; i <= 5; ++i) {

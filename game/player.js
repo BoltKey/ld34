@@ -29,6 +29,7 @@ function Player() {
 		dieSound.play();
 		++this.totaldeaths;
 		++this.leveldeaths;
+		level.draw(true);
 	}
 	this.newLevel = function() {
 		this.x = level.start[0];

@@ -1,8 +1,8 @@
 function draw() {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	//ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if (ingame) {
 		
-		level.draw();
+		level.draw(false);
 		player.draw();
 		ctx.textAlign = "left";
 		for (t of texts) {
