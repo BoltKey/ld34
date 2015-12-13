@@ -14,6 +14,7 @@ function draw() {
 				}
 			}
 		}
+		ctx.font = "12px Arial";
 	}
 }
 
@@ -21,7 +22,6 @@ function drawlogo(a) {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.drawImage(logoimg, Math.floor(canvas.width / 2 - 125), Math.floor(canvas.height / 2 - 120), 250, 240);
 	ctx.fillStyle = "rgb(100, 100, 100)";
-	ctx.font = "50px arial";
 	ctx.textAlign = "center";
 	ctx.fillText("BoltKey", canvas.width / 2, canvas.height / 2 + 170);
 	t = Math.abs(a - 60) - 40;

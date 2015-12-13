@@ -56,7 +56,7 @@ Level = function(code, start) {
 				}
 				ctx.fillRect(j * 24, i * 24, 24, 24);
 				ctx.fillStyle = "magenta";
-				ctx.font = "18px Arial";
+				ctx.fontSize = 18;
 				ctx.textAlign = "center";
 				ctx.fillText(s, j * 24 + 12, i * 24 + 16);
 				++j;

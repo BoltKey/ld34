@@ -1,6 +1,7 @@
 var level;
 var currlevel;
 function toGame() {
+	ctx.font = "12px Arial";
 	console.log("ingame");
 	currlevel = Cookies.get("levelSave");
 	if (typeof(currlevel) === "undefined") currlevel = 0;

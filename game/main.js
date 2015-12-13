@@ -1,12 +1,15 @@
 var player;
 var texts;
 var ingame;
+var ctx;
+var canvas;
 var starttimer = 120;
 logoimg = new Image();
 logoimg.src = "http://boltkey.cz/boltkeylogo.png";
 function main() {
 	canvas = $("#canvas")[0];
 	ctx = canvas.getContext("2d");
+	
 	canvas.height = window.innerHeight;
 	canvas.width = window.innerWidth;
 	
@@ -20,6 +23,7 @@ function main() {
 	goalSound = new Audio("sounds/finish.wav");
 	goalSound.volume = 0.4;
 	music.loop = true;
+	ctx.font = "50px Arial";
 	mainloop();
 }
 

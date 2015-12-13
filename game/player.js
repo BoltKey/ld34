@@ -202,7 +202,6 @@ function Player() {
 		ctx.fillStyle = "green";
 		ctx.fillRect(this.x, this.y, this.width, this.width);
 		ctx.textAlign = "center";
-		ctx.font = "12px Arial";
 		for (p of this.deadpixels) {
 			ctx.fillStyle = p[2];
 			var c = this.width / 16
