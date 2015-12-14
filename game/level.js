@@ -52,7 +52,7 @@ Level = function(code, start) {
 						ctx.fillStyle = "yellow";
 						break;
 					case 9:
-						ctx.fillStyle = "#ccffcc";
+						ctx.fillStyle = "#aaffaa";
 						
 				}
 				ctx.fillRect(j * 24, i * 24, 24, 24);
