@@ -15,6 +15,7 @@ function draw() {
 			}
 		}
 		ctx.font = "12px Arial";
+		ctx.fillText("Copyright 2015 by BoltKey", canvas.width / 2 - 100, canvas.height - 10);
 	}
 }
 
